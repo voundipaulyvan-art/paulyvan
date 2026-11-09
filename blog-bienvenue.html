@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenue dans mon univers — Paul Yvan</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0c10; --bg2: #0f1219; --bg3: #151b26;
+      --border: rgba(139,92,246,0.15); --accent: #8b5cf6; --accent2: #c4b5fd;
+      --text: #e8edf5; --muted: #7a8a9e; --card-bg: #111620;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9;
+      --border: rgba(124,58,237,0.15); --accent: #7c3aed; --accent2: #6d28d9;
+      --text: #1e293b; --muted: #64748b; --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.7;
+      overflow-x: hidden; transition: background 0.3s, color 0.3s;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(10,12,16,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); transition: background 0.3s;
+    }
+    [data-theme="light"] nav { background: rgba(255,255,255,0.88); }
+    .nav-logo { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-right { display: flex; align-items: center; }
+    .nav-theme-toggle {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      padding: 7rem 2.5rem 0; position: relative; overflow: hidden;
+    }
+    .article-hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      border-bottom: 1px solid var(--border); padding-bottom: 2.5rem;
+    }
+    .article-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.8rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; margin-bottom: 1.8rem;
+      transition: color 0.2s;
+    }
+    .article-back:hover { color: var(--text); }
+    .article-tags { display: flex; gap: 8px; margin-bottom: 1rem; }
+    .article-tag {
+      font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--accent);
+      background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25);
+      padding: 3px 12px; border-radius: 99px;
+    }
+    .article-h1 {
+      font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700;
+      letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 0.9rem;
+    }
+    .article-lead {
+      font-size: 1.08rem; color: var(--muted); line-height: 1.65;
+      max-width: 680px; margin-bottom: 1.8rem;
+    }
+    .article-meta-row {
+      display: flex; align-items: center; gap: 1.5rem;
+      font-size: 0.78rem; color: var(--muted); flex-wrap: wrap;
+    }
+    .author-wrap { display: flex; align-items: center; gap: 10px; }
+    .author-photo {
+      width: 38px; height: 38px; border-radius: 50%;
+      object-fit: cover; border: 2px solid rgba(139,92,246,0.3);
+    }
+    .author-name { font-weight: 600; color: var(--text); font-size: 0.85rem; }
+    .meta-dot { color: var(--border); font-size: 1.2rem; }
+    .meta-info { display: flex; align-items: center; gap: 5px; }
+
+    /* ── ARTICLE LAYOUT ── */
+    .article-layout {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2.5rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-content { min-width: 0; }
+
+    .article-body { font-size: 0.97rem; line-height: 1.85; color: var(--text); }
+
+    .article-body p { margin-bottom: 1.3rem; }
+
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 700; letter-spacing: -0.015em;
+      color: var(--text); margin: 2.8rem 0 1rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+      scroll-margin-top: 100px;
+    }
+
+    .article-body strong { font-weight: 600; }
+
+    .article-body .highlight {
+      border-left: 3px solid var(--accent);
+      background: rgba(139,92,246,0.06); padding: 1rem 1.3rem;
+      border-radius: 0 8px 8px 0; margin: 1.6rem 0;
+      color: var(--muted); font-style: italic; font-size: 0.95rem;
+    }
+
+    .article-body .question-list {
+      display: flex; flex-direction: column; gap: 0.45rem;
+      margin: 0.8rem 0 1.3rem 0;
+    }
+    .article-body .question-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.95rem; color: var(--muted);
+    }
+    .article-body .question-item::before {
+      content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 600; margin-top: 1px;
+    }
+
+    .article-body .tech-row {
+      display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0;
+    }
+    .article-body .tech-tag {
+      font-size: 0.72rem; font-weight: 500; color: var(--muted);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 5px;
+    }
+    [data-theme="light"] .article-body .tech-tag { background: var(--bg3); }
+
+    .article-body .article-img {
+      width: 100%; border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); margin: 1.8rem 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-body .article-img img {
+      width: 100%; display: block; object-fit: cover;
+    }
+
+    .article-body .conclusion-box {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem; margin-top: 2.5rem; text-align: center;
+    }
+    .article-body .conclusion-box .conclusion-emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+    .article-body .conclusion-box p { margin-bottom: 0; color: var(--muted); font-size: 0.95rem; }
+    .article-body .conclusion-box strong { color: var(--accent2); }
+
+    /* ── TOC SIDEBAR ── */
+    .toc {
+      position: sticky; top: 90px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.3rem 1.1rem;
+    }
+    .toc-label {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--muted); margin-bottom: 1rem;
+    }
+    .toc-list { list-style: none; display: flex; flex-direction: column; }
+    .toc-link {
+      display: block; font-size: 0.78rem; color: var(--muted);
+      text-decoration: none; padding: 5px 10px; border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      line-height: 1.45;
+    }
+    .toc-link:hover { color: var(--text); background: rgba(139,92,246,0.05); }
+    .toc-link.active {
+      color: var(--accent); border-left-color: var(--accent);
+      background: rgba(139,92,246,0.07); font-weight: 500;
+    }
+
+    /* ── ARTICLE NAV (prev/next) ── */
+    .article-nav {
+      max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border); padding-top: 2rem;
+    }
+    .article-nav a {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.82rem; font-weight: 600; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .article-nav a:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 2.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-left { font-size: 0.8rem; color: var(--muted); }
+    .footer-right { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .article-layout { grid-template-columns: 1fr; padding: 2rem 1.2rem 4rem; gap: 2rem; }
+      .toc { position: static; }
+      .toc { display: none; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      .article-hero { padding: 6rem 1.2rem 0; }
+      .article-nav { padding: 2rem 1.2rem 2rem; }
+      footer { padding: 1.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="accueil.html" class="nav-logo">Paul Y.</a>
+    <ul class="nav-links">
+      <li><a href="accueil.html">Accueil</a></li>
+      <li><a href="propos.html">À propos</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-theme-toggle" id="themeToggle" title="Changer de thème"></button>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HEADER -->
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="blog.html" class="article-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour au blog
+      </a>
+      <div class="article-tags">
+        <span class="article-tag">Parcours</span>
+        <span class="article-tag">Personnel</span>
+      </div>
+      <div style="margin:1.5rem 0 1.8rem;">
+        <img src="images/py-logo.png" alt="Paul Yvan" style="height:90px;width:auto;background:#fff;padding:0.6rem 1.2rem;border-radius:10px;display:block;" />
+      </div>
+      <h1 class="article-h1">Bienvenue dans mon univers !</h1>
+      <p class="article-lead">Je ne sais pas exactement à quel moment je suis devenu passionné d'informatique. Mais si je devais chercher le point de départ, je remonterais probablement à mon enfance — à une époque où l'informatique signifiait surtout pour moi… les jeux vidéo.</p>
+      <div class="article-meta-row">
+        <div class="author-wrap">
+          <img src="images/paul-photo.jpg" alt="Paul Yvan" class="author-photo" />
+          <div>
+            <div class="author-name">Paul Yvan</div>
+          </div>
+        </div>
+        <span class="meta-dot">&middot;</span>
+        <span class="meta-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Novembre 2026
+        </span>
+        <span class="meta-dot">&middot;</span>
+        <span class="meta-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          8 min de lecture
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE LAYOUT -->
+  <div class="article-layout">
+
+    <!-- CONTENT -->
+    <article class="article-content">
+      <div class="article-body">
+
+        <p>Avant de penser au code, aux bases de données, à la Data ou encore aux systèmes d'information, il y avait simplement cette envie de comprendre comment tout cela fonctionnait.</p>
+
+        <p>Je m'appelle <strong>Paul Yvan</strong>. Aujourd'hui, je suis étudiant en 5ᵉ année d'informatique à l'EPSI Paris, avec une spécialisation autour de la Data et des systèmes d'information. Mais avant d'en arriver là, le chemin a été plutôt mouvementé. 😅</p>
+
+        <!-- SECTION 1 -->
+        <h2 id="jeux-video">Tout a commencé avec les jeux vidéo...</h2>
+
+        <p>Quand j'étais plus jeune, les jeux vidéo occupaient une place importante dans mon quotidien. Pas juste pour le divertissement — il y avait quelque chose de fascinant dans ces mondes virtuels, dans la façon dont ils réagissaient à chaque action, dans la précision de leur mécanique.</p>
+
+        <p>Au départ, je ne me posais pas vraiment de questions. Je voulais simplement jouer. Mais progressivement, sans m'en rendre compte, j'ai commencé à observer autre chose : <strong>comment tout ça fonctionnait réellement</strong>.</p>
+
+        <div class="highlight">
+          « C'est en jouant que j'ai appris à regarder les systèmes, pas seulement à les utiliser. »
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="curiosite">La curiosité de comprendre</h2>
+
+        <p>Avec le temps, une série de questions s'est installée dans mon esprit :</p>
+
+        <div class="question-list">
+          <div class="question-item">Comment un personnage peut-il bouger à l'écran de façon aussi fluide ?</div>
+          <div class="question-item">Comment un jeu peut-il réagir instantanément à nos actions ?</div>
+          <div class="question-item">Comment toutes ces informations peuvent-elles être stockées et traitées en temps réel ?</div>
+          <div class="question-item">D'où viennent ces graphismes, ces sons, ces règles ?</div>
+        </div>
+
+        <p>Je ne savais évidemment pas encore que toutes ces questions étaient liées à l'informatique — à la programmation, aux algorithmes, aux bases de données. Je savais juste que j'avais envie de comprendre.</p>
+
+        <p>Et je pense que c'est précisément cette curiosité qui m'a progressivement rapproché de l'univers informatique. Pas un déclic soudain, mais une attirance naturelle, construite au fil du temps.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="construction">De l'utilisation à la construction</h2>
+
+        <p>Puis est venu le moment où je suis passé de <em>« j'aime utiliser la technologie »</em> à <em>« j'aimerais comprendre comment la construire »</em>.</p>
+
+        <p>J'ai commencé à découvrir la programmation, les sites web, les bases de données... Les premières lignes de code, les premières pages HTML, les premières requêtes SQL. Chaque nouvelle découverte ouvrait une autre porte.</p>
+
+        <p>Évidemment, les débuts n'ont pas toujours été simples. Entre les erreurs de code, les programmes qui refusent de fonctionner, les heures passées à chercher pourquoi une simple parenthèse manquante fait tout planter... J'ai progressivement appris une chose essentielle :</p>
+
+        <div class="highlight">
+          En informatique, savoir chercher et apprendre compte souvent autant que savoir coder.
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2 id="projets">Projets et expériences</h2>
+
+        <p>Au fil de mon parcours, j'ai eu l'occasion de travailler sur différents projets — des applications web, des outils de visualisation de données, des dashboards analytiques.</p>
+
+        <p>J'ai notamment développé des applications en <strong>PHP, MySQL, JavaScript et Python</strong>, travaillé sur des intégrations d'API et exploré différentes architectures. Chaque projet a été une occasion de creuser plus loin, de sortir de ma zone de confort.</p>
+
+        <p>L'un de mes projets les plus marquants a été la conception d'une solution de gestion de présence basée sur la <strong>biométrie</strong>, utilisant un ESP32 avec capteur d'empreintes digitales. À ce moment-là, je ne faisais plus simplement qu'utiliser une technologie — je construisais quelque chose de concret, qui répondait à un besoin réel.</p>
+
+        <p>Et c'est probablement là que ma vision de l'informatique a commencé à vraiment changer.</p>
+
+        <div class="article-img">
+          <img src="images/paul-photo.jpg" alt="Paul Yvan" style="max-height:420px;object-position:top;" />
+        </div>
+
+        <div class="article-img" style="background:#fff;border-radius:12px;padding:1.8rem 2.5rem;">
+          <img src="images/py-logo.png" alt="Paul Yvan — PY." style="max-height:100px;width:auto;max-width:100%;margin:0 auto;display:block;" />
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="aujourd-hui">Aujourd'hui : Big Data &amp; Business Intelligence</h2>
+
+        <p>Aujourd'hui, je suis étudiant en <strong>5ᵉ année d'informatique à l'EPSI Paris</strong>, avec une orientation Big Data & Business Intelligence. Je m'intéresse particulièrement à la manière dont la donnée peut être transformée en information utile — et comment ces informations peuvent guider de meilleures décisions.</p>
+
+        <p>Les outils et langages que j'utilise au quotidien :</p>
+
+        <div class="tech-row">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">ETL / ELT</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">PHP</span>
+          <span class="tech-tag">Git</span>
+          <span class="tech-tag">Linux</span>
+        </div>
+
+        <p>Mais je ne me limite pas uniquement à la Data. Le développement web, les architectures systèmes, le cloud — tout ce qui touche à la construction d'outils technologiques m'intéresse. Je me considère avant tout comme quelqu'un qui aime <strong>comprendre les systèmes dans leur globalité</strong>.</p>
+
+        <!-- SECTION 6 -->
+        <h2 id="pourquoi-blog">Alors, pourquoi ce blog ?</h2>
+
+        <p>Tout simplement pour <strong>documenter mon parcours</strong>. Garder une trace de ce que j'apprends, partager des réflexions, des tutoriels, des retours d'expérience — avec celles et ceux qui passent par les mêmes questions que moi.</p>
+
+        <p>Je partagerai ici :</p>
+
+        <div class="question-list">
+          <div class="question-item">Des sujets techniques — analyse de données, développement, outils BI</div>
+          <div class="question-item">Des retours sur mes projets et ce qu'ils m'ont appris</div>
+          <div class="question-item">Des réflexions sur mon parcours et sur le secteur tech</div>
+          <div class="question-item">Peut-être quelques comparatifs ou guides pratiques</div>
+        </div>
+
+        <p>Je ne prétends pas tout savoir. Au contraire — je suis encore en train d'apprendre. Et c'est justement ça qui rend le voyage intéressant. Il y aura des réussites, des erreurs, des découvertes... et j'espère que ça résonnera avec quelqu'un quelque part.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="suite">La suite de l'aventure</h2>
+
+        <p>Aujourd'hui, je cherche encore à définir précisément jusqu'où cette aventure va m'emmener. Data Analyst ? Data Engineer ? Software Engineer ? Les frontières sont floues, et je pense que c'est une bonne chose.</p>
+
+        <p>Ce dont je suis certain, c'est que je veux continuer à <strong>apprendre, construire et expérimenter</strong>. Parce qu'au fond, ce qui m'a attiré vers l'informatique au départ est toujours là : la curiosité de comprendre comment les choses fonctionnent.</p>
+
+        <div class="conclusion-box">
+          <span class="conclusion-emoji">🚀</span>
+          <p>Alors, <strong>bienvenue dans mon petit univers.</strong></p>
+          <p>Et maintenant, on code !</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- TOC SIDEBAR -->
+    <aside class="toc">
+      <div class="toc-label">Sur cette page</div>
+      <ul class="toc-list">
+        <li><a href="#jeux-video" class="toc-link">Tout a commencé avec les jeux vidéo</a></li>
+        <li><a href="#curiosite" class="toc-link">La curiosité de comprendre</a></li>
+        <li><a href="#construction" class="toc-link">De l'utilisation à la construction</a></li>
+        <li><a href="#projets" class="toc-link">Projets et expériences</a></li>
+        <li><a href="#aujourd-hui" class="toc-link">Aujourd'hui : Big Data &amp; BI</a></li>
+        <li><a href="#pourquoi-blog" class="toc-link">Pourquoi ce blog ?</a></li>
+        <li><a href="#suite" class="toc-link">La suite de l'aventure</a></li>
+      </ul>
+    </aside>
+
+  </div>
+
+  <!-- ARTICLE NAV -->
+  <div class="article-nav">
+    <a href="blog.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Retour au blog
+    </a>
+    <a href="https://voundipaulyvan-art.github.io/mybestsim-article/" target="_blank" rel="noopener">
+      Prochain article
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">Paul Y. &mdash; portfolio 2026</div>
+    <div class="footer-right">Fait avec &hearts; &amp; données propres</div>
+  </footer>
+
+  <script>
+    /* Theme toggle */
+    const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    const SUN_SVG  = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`;
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    toggleBtn.innerHTML = html.getAttribute('data-theme') === 'dark' ? MOON_SVG : SUN_SVG;
+    toggleBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      toggleBtn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
+    });
+
+    /* TOC active section highlight */
+    const sections = document.querySelectorAll('h2[id]');
+    const tocLinks = document.querySelectorAll('.toc-link');
+
+    if (sections.length && tocLinks.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach(l => l.classList.remove('active'));
+            const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -70% 0px' });
+
+      sections.forEach(s => observer.observe(s));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos — Paul Yvan</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0c10; --bg2: #0f1219; --bg3: #151b26;
+      --border: rgba(139,92,246,0.15); --accent: #8b5cf6; --accent2: #c4b5fd;
+      --accent3: #34d399; --text: #e8edf5; --muted: #7a8a9e; --card-bg: #111620;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9;
+      --border: rgba(124,58,237,0.15); --accent: #7c3aed; --accent2: #6d28d9;
+      --accent3: #059669; --text: #1e293b; --muted: #64748b; --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.7;
+      overflow-x: hidden; transition: background 0.3s, color 0.3s;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(10,12,16,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); transition: background 0.3s;
+    }
+    [data-theme="light"] nav { background: rgba(255,255,255,0.88); }
+    .nav-logo { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-right { display: flex; align-items: center; }
+    .nav-theme-toggle {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;
+    }
+    .nav-theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── HERO ── */
+    .about-hero {
+      padding: 10rem 2.5rem 5rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .about-hero-bg {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, black 40%, transparent 100%);
+    }
+    .about-hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.82rem; font-weight: 500;
+      padding: 0.4rem 1.1rem; border-radius: 99px; margin-bottom: 1.8rem;
+      animation: fadeUp 0.5s ease both;
+    }
+    .about-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem;
+      position: relative; animation: fadeUp 0.5s 0.1s ease both;
+    }
+    .about-hero .subtitle {
+      color: var(--muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BIO ── */
+    .about-bio { padding: 4rem 2.5rem 3rem; }
+    .about-bio .container { max-width: 860px; }
+    .bio-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.2rem; }
+    .bio-header-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: var(--accent);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+    }
+    .bio-header h2 { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .bio-text { font-size: 1.03rem; color: var(--text); line-height: 1.85; margin-bottom: 2.5rem; text-align: justify; }
+    .bio-text a { color: var(--accent); text-decoration: none; }
+    .bio-text a:hover { text-decoration: underline; }
+    .bio-stats { display: flex; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+    .bio-stat { flex: 1; }
+    .bio-stat:not(:last-child) { border-right: 1px solid var(--border); padding-right: 2rem; margin-right: 2rem; }
+    .bio-stat-num { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .bio-stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* ── SKILLS ── */
+    .about-skills { padding: 4rem 2.5rem; background: var(--bg2); }
+    .about-skills h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .skills-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .skills-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 4rem; }
+    .skill-cat-label {
+      font-family: 'Poppins', sans-serif; font-size: 0.68rem;
+      color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.9rem; font-weight: 700;
+    }
+    .tech-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tech-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 5px 12px;
+      font-size: 0.84rem; font-weight: 500; color: var(--text);
+      transition: border-color 0.2s, transform 0.15s; cursor: default;
+    }
+    .tech-pill:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .tech-pill img { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
+    .pill-letter {
+      width: 16px; height: 16px; border-radius: 3px; background: var(--accent); color: white;
+      font-size: 0.58rem; font-weight: 700; font-family: 'Poppins', sans-serif;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    html[data-theme="dark"] .icon-invert { filter: brightness(0) invert(1); }
+
+    /* ── ORGANISATIONS ── */
+    .about-orgs { padding: 3rem 2.5rem; }
+    .cat-label {
+      font-family: 'Poppins', sans-serif; font-size: 0.68rem;
+      color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1rem; font-weight: 700; display: block;
+    }
+    .org-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .org-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 16px; transition: border-color 0.2s;
+    }
+    .org-pill:hover { border-color: var(--accent); }
+    .org-pill-logo {
+      width: 28px; height: 28px; border-radius: 6px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .org-pill-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .org-pill-name { font-size: 0.9rem; font-weight: 600; }
+    .org-pill-role {
+      font-size: 0.75rem; color: var(--muted);
+      border-left: 1px solid var(--border); padding-left: 10px;
+    }
+
+    /* ── EXPÉRIENCE & FORMATION ── */
+    .about-exp-edu { padding: 4rem 2.5rem; background: var(--bg2); }
+    .exp-edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .col-title {
+      font-family: 'Poppins', sans-serif; font-size: 0.68rem;
+      color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.8rem; font-weight: 700; display: block;
+    }
+    .exp-items, .edu-items { display: flex; flex-direction: column; gap: 1.6rem; }
+    .exp-item, .edu-item { display: flex; align-items: flex-start; gap: 14px; }
+    .item-logo {
+      width: 42px; height: 42px; border-radius: 10px;
+      border: 1px solid var(--border); overflow: hidden;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .item-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .logo-letters {
+      font-family: 'Poppins', sans-serif; font-size: 0.6rem;
+      font-weight: 700; text-align: center; line-height: 1.3;
+    }
+    .item-body { flex: 1; min-width: 0; }
+    .item-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+    .item-title { font-size: 0.95rem; font-weight: 600; }
+    .item-date { font-family: 'Poppins', sans-serif; font-size: 0.7rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    .item-org { font-size: 0.84rem; color: var(--accent); font-weight: 500; text-decoration: none; }
+    .item-org:hover { text-decoration: underline; }
+    .item-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.6; }
+    .item-id { font-size: 0.7rem; color: var(--accent); font-family: 'Poppins', sans-serif; margin-top: 0.2rem; }
+
+    .exp-placeholder {
+      padding: 2.5rem; text-align: center;
+      border: 1px dashed var(--border); border-radius: 12px;
+      color: var(--muted); font-size: 0.9rem; line-height: 1.8;
+    }
+    .exp-placeholder strong { color: var(--text); display: block; font-size: 1rem; margin-bottom: 0.4rem; }
+    .cert-divider { border-top: 1px solid var(--border); padding-top: 1.4rem; margin-top: 0.4rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 2.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-left { font-family: 'Poppins', sans-serif; font-size: 0.8rem; color: var(--muted); }
+    .footer-right { font-size: 0.82rem; color: var(--muted); }
+    .footer-right span { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      .about-hero { padding: 7rem 1.2rem 3rem; }
+      .about-bio, .about-skills, .about-orgs, .about-exp-edu { padding: 3rem 1.2rem; }
+      .skills-categories, .exp-edu-grid { grid-template-columns: 1fr; }
+      .bio-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .bio-stat:not(:last-child) { border-right: none; margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="accueil.html" class="nav-logo">Paul Y.</a>
+    <ul class="nav-links">
+      <li><a href="accueil.html">Accueil</a></li>
+      <li><a href="propos.html" class="active">À propos</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-theme-toggle" id="themeToggle" title="Changer de thème"></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="container" style="position: relative;">
+      <div class="about-hero-badge"><svg style="display:inline-block;vertical-align:middle;margin-right:6px" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> À propos de moi</div>
+      <h1>Passionné par la Data<br/>& le Numérique</h1>
+      <p class="subtitle">Découvrez mon parcours, mes compétences et ma passion pour la donnée et le développement</p>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="about-bio">
+    <div class="container">
+      <div class="bio-header">
+        <div class="bio-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h2>Qui suis-je ?</h2>
+      </div>
+      <p class="bio-text">
+        Data Analyst, Data Engineer et développeur passionné, je conçois des solutions data complètes pour des organisations qui veulent exploiter la valeur de leurs données. De la modélisation de pipelines d'ingestion à la création de dashboards décisionnels impactants, j'interviens sur l'intégralité du cycle data. <a href="#">J'aime construire des systèmes bout-en-bout</a> — robustes, maintenables et orientés résultats — de la collecte des données brutes jusqu'aux insights stratégiques. Certifié Google Data Analytics, spécialisé SQL, Python, Power BI et BigQuery, je continue de me former activement pour livrer un travail à la hauteur des enjeux métier.
+      </p>
+      <div class="bio-stats">
+        <div class="bio-stat">
+          <div class="bio-stat-num">2+</div>
+          <div class="bio-stat-label">Années d'exp.</div>
+        </div>
+        <div class="bio-stat">
+          <div class="bio-stat-num">20+</div>
+          <div class="bio-stat-label">Projets</div>
+        </div>
+        <div class="bio-stat">
+          <div class="bio-stat-num">12+</div>
+          <div class="bio-stat-label">Clients</div>
+        </div>
+        <div class="bio-stat">
+          <div class="bio-stat-num">6+</div>
+          <div class="bio-stat-label">Certifications</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES TECHNIQUES -->
+  <section class="about-skills">
+    <div class="container">
+      <h2>Compétences Techniques</h2>
+      <p class="skills-subtitle">Stack, outils et pratiques que j'utilise au quotidien.</p>
+      <div class="skills-categories">
+
+        <!-- LOGICIELS & OUTILS -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Logiciels & Outils</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" />VS Code</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" />Android Studio</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />Docker</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino" />Arduino</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />Git</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="icon-invert" />GitHub</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />Figma</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter" />Jupyter</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/New_Power_BI_Logo.svg/120px-New_Power_BI_Logo.svg.png" alt="Power BI" />Power BI</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/120px-Adobe_Illustrator_CC_icon.svg.png" alt="Illustrator" />Adobe Illustrator</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/120px-Adobe_Photoshop_CC_icon.svg.png" alt="Photoshop" />Photoshop</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/120px-Adobe_After_Effects_CC_icon.svg.png" alt="After Effects" />After Effects</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Adobe_XD_CC_icon.svg/120px-Adobe_XD_CC_icon.svg.png" alt="Adobe XD" />Adobe XD</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg/120px-Microsoft_Office_Excel_%282019%E2%80%93present%29.svg.png" alt="Excel" />Excel</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Google_Sheets_2020_Logo.svg/120px-Google_Sheets_2020_Logo.svg.png" alt="Google Sheets" />Google Sheets</span>
+          </div>
+        </div>
+
+        <!-- LANGAGES -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Langages Maîtrisés</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" />HTML</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" />CSS</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />JavaScript</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />PHP</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" alt="Sass" />Sass</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart" />Dart</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />Python</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="SQL" />SQL</span>
+            <span class="tech-pill"><div class="pill-letter">D</div>DAX</span>
+            <span class="tech-pill"><div class="pill-letter">M</div>Power Query (M)</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg" alt="R" />R</span>
+          </div>
+        </div>
+
+        <!-- BASES DE DONNÉES -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Bases de Données</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />MySQL</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />PostgreSQL</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="BigQuery" />BigQuery</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server" />SQL Server</span>
+          </div>
+        </div>
+
+        <!-- FRAMEWORKS DATA -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Frameworks & Librairies Data</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" />Pandas</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" />NumPy</span>
+            <span class="tech-pill"><div class="pill-letter">M</div>Matplotlib</span>
+            <span class="tech-pill"><div class="pill-letter">d</div>dbt</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/260px-Scikit_learn_logo_small.svg.png" alt="Scikit-learn" />Scikit-learn</span>
+          </div>
+        </div>
+
+        <!-- FRAMEWORKS & CMS -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Frameworks & CMS</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" />Vue.js</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" />Flutter</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress" class="icon-invert" />WordPress</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />Bootstrap</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="TailwindCSS" />TailwindCSS</span>
+          </div>
+        </div>
+
+        <!-- SERVICES CLOUD -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Services Cloud</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" />Google Cloud</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure" />Microsoft Azure</span>
+            <span class="tech-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Microsoft_icon.svg/120px-Microsoft_icon.svg.png" alt="Microsoft 365" />Microsoft 365</span>
+          </div>
+        </div>
+
+        <!-- HÉBERGEMENT WEB -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Services d'Hébergement Web</div>
+          <div class="tech-pills">
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" alt="Vercel" class="icon-invert" />Vercel</span>
+            <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Pages" class="icon-invert" />GitHub Pages</span>
+            <span class="tech-pill"><div class="pill-letter">H</div>Hostinger</span>
+          </div>
+        </div>
+
+        <!-- AUTRES COMPÉTENCES -->
+        <div class="skill-cat">
+          <div class="skill-cat-label">Autres Compétences</div>
+          <div class="tech-pills">
+            <span class="tech-pill">ETL / ELT</span>
+            <span class="tech-pill">Data Visualization</span>
+            <span class="tech-pill">Data Cleaning</span>
+            <span class="tech-pill">Analyse statistique</span>
+            <span class="tech-pill">APIs REST</span>
+            <span class="tech-pill">Gestion de projet</span>
+            <span class="tech-pill">Référencement (SEO)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANISATIONS -->
+  <section class="about-orgs">
+    <div class="container">
+      <span class="cat-label">Organisations</span>
+      <div class="org-pills">
+        <div class="org-pill">
+          <div class="org-pill-logo">
+            <img src="images/cameroon-esports.jpg" alt="Cameroon E-Sports" />
+          </div>
+          <span class="org-pill-name">Cameroon E-Sports</span>
+          <span class="org-pill-role">Membre</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPÉRIENCE & FORMATION -->
+  <section class="about-exp-edu">
+    <div class="container">
+      <div class="exp-edu-grid">
+
+        <!-- EXPÉRIENCE PROFESSIONNELLE -->
+        <div class="exp-col">
+          <span class="col-title">Expérience Professionnelle</span>
+          <div class="exp-items">
+
+            <!-- Invi Sarl -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #c0392b; border-color: rgba(192,57,43,0.3); border-radius: 10px;">
+                <img src="images/invi.webp" alt="Invi Sarl" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Support IT &amp; Data Analyst</div>
+                  <div class="item-date">Août 2025 — Déc 2025</div>
+                </div>
+                <div class="item-org">Invi Sarl</div>
+                <div class="item-desc">Support technique des équipes, collecte et analyse de données opérationnelles, production de rapports et tableaux de bord internes.</div>
+              </div>
+            </div>
+
+            <!-- Piasoft -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="images/piasoft.webp" alt="Piasoft" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Stage — Software Engineer</div>
+                  <div class="item-date">Nov 2024 — Juin 2025</div>
+                </div>
+                <div class="item-org">Piasoft</div>
+                <div class="item-desc">Développement et maintenance d'applications, intégration de fonctionnalités back-end, revue de code et documentation technique.</div>
+              </div>
+            </div>
+
+            <!-- Cameroon E-Sport / Orange Cameroun -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="images/cameroon-esports.jpg" alt="Cameroon E-Sport" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Data Analyst</div>
+                  <div class="item-date">Juin 2023 — Présent</div>
+                </div>
+                <div class="item-org">Cameroon E-Sport / Orange Cameroun</div>
+                <div class="item-desc">Analyse des données compétitives et des performances joueurs, création de dashboards Power BI, automatisation des rapports hebdomadaires.</div>
+              </div>
+            </div>
+
+            <!-- Nkap -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="images/nkap.webp" alt="Nkap" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Stage — Développeur Web</div>
+                  <div class="item-date">Janv 2023 — Juin 2023</div>
+                </div>
+                <div class="item-org">Nkap</div>
+                <div class="item-desc">Développement de fonctionnalités front-end et back-end, intégration d'APIs financières pour le service de gestion de finances personnelles.</div>
+              </div>
+            </div>
+
+            <!-- Institut Ndi Samba -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #1565c0; border-color: rgba(21,101,192,0.3);">
+                <img src="images/institutsamba.webp" alt="Institut Ndi Samba" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Développeur Mobile</div>
+                  <div class="item-date">Déc 2022 — Fév 2023</div>
+                </div>
+                <div class="item-org">Institut Ndi Samba</div>
+                <div class="item-desc">Conception et développement d'une application mobile pédagogique sous Flutter/Dart, design des interfaces et tests fonctionnels.</div>
+              </div>
+            </div>
+
+            <!-- Drop Me Freelance -->
+            <div class="exp-item">
+              <div class="item-logo" style="background: #0ea5e9; border-color: rgba(14,165,233,0.3);">
+                <img src="images/dropme.webp" alt="Drop Me" />
+              </div>
+              <div class="item-body">
+                <div class="item-row">
+                  <div class="item-title">Développeur Mobile / Électronique</div>
+                  <div class="item-date">2022 — Présent</div>
+                </div>
+                <div class="item-org">Drop Me · Freelance · Sur site</div>
+                <div class="item-desc">Conception et réalisation d'applications mobiles, intégration électronique IoT et développement full-stack pour des solutions connectées.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FORMATION & CERTIFICATIONS -->
+        <div class="edu-col">
+          <span class="col-title">Formation & Certifications</span>
+          <div class="edu-items">
+
+            <!-- UIECC / ESIGN -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="images/uiecc.jpg" alt="Université Inter-Etats Congo-Cameroun" />
+              </div>
+              <div class="item-body">
+                <div class="item-title">Ingénieur en Génie Numérique</div>
+                <div class="item-org">ESIGN — Université Inter-Etats Congo-Cameroun</div>
+                <div class="item-desc">2025</div>
+              </div>
+            </div>
+
+            <!-- EPSI Paris -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="images/epsi.png" alt="EPSI Paris" />
+              </div>
+              <div class="item-body">
+                <div class="item-title">Msc Expert en SI Dev &amp; Data</div>
+                <div class="item-org">EPSI Paris</div>
+                <div class="item-desc">2025</div>
+              </div>
+            </div>
+
+            <!-- PowerBache Education -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: #0a1f10; border-color: rgba(52,211,153,0.2);">
+                <img src="images/powerbache.webp" alt="PowerBache Education" style="padding: 2px;" />
+              </div>
+              <div class="item-body">
+                <div class="item-title">Graphisme de Production</div>
+                <div class="item-org">PowerBache Education</div>
+                <div class="item-desc">2018</div>
+              </div>
+            </div>
+
+            <!-- SÉPARATEUR CERTIFICATIONS -->
+            <div class="cert-divider">
+              <span class="cat-label">Certifications</span>
+            </div>
+
+            <!-- Google Data Analytics -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/250px-Google_2015_logo.svg.png" alt="Google" />
+              </div>
+              <div class="item-body">
+                <div class="item-title">Google Data Analytics</div>
+                <div class="item-org">Google · Coursera · 2026</div>
+                <div class="item-id">coursera.org/verify/T7LPJHTP8PIE</div>
+              </div>
+            </div>
+
+            <!-- UX/UI Design -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: rgba(139,92,246,0.12);">
+                <span class="logo-letters" style="color: var(--accent); font-size: 0.58rem;">UX<br/>UI</span>
+              </div>
+              <div class="item-body">
+                <div class="item-title">UX/UI Design</div>
+                <div class="item-org">Coursera · 2026</div>
+              </div>
+            </div>
+
+            <!-- Power BI & Virtual Bots -->
+            <div class="edu-item">
+              <div class="item-logo" style="background: #fff; border-color: rgba(0,0,0,0.08);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Microsoft_icon.svg/120px-Microsoft_icon.svg.png" alt="Microsoft" />
+              </div>
+              <div class="item-body">
+                <div class="item-title">Power BI &amp; Power Virtual Agents</div>
+                <div class="item-org">Microsoft · Coursera · 2026</div>
+                <div class="item-id">coursera.org/verify/FIIWTKWZ0SXR</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">Paul Y. — portfolio 2026</div>
+    <div class="footer-right">Fait avec <span style="display:inline-flex;align-items:center;vertical-align:middle;color:var(--accent)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span> &amp; données propres</div>
+  </footer>
+
+  <script>
+    const MOON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    const SUN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`;
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    toggleBtn.innerHTML = html.getAttribute('data-theme') === 'dark' ? MOON_SVG : SUN_SVG;
+    toggleBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      toggleBtn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
+    });
+  </script>
+</body>
+</html>
