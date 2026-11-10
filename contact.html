@@ -314,7 +314,7 @@
       toggleBtn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
     });
 
-    /* ── FORM SUBMIT (formsubmit.co — envoie à voundipaul@yahoo.com) ── */
+    /* ── FORM SUBMIT (Web3Forms) ── */
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
 
@@ -324,20 +324,22 @@
       submitBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Envoi en cours…`;
 
       const payload = {
+        access_key: '19a56c83-e297-4854-a4f5-939eb4d36dfd',
         name:    document.getElementById('name').value,
         email:   document.getElementById('email').value,
         message: document.getElementById('message').value,
-        _subject: 'Nouveau message depuis votre portfolio',
+        subject: 'Nouveau message depuis votre portfolio',
       };
 
       try {
-        const res = await fetch('https://formsubmit.co/ajax/voundipaul@yahoo.com', {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload),
         });
 
-        if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
           form.innerHTML = `
             <div class="form-success">
               <div class="success-icon"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
